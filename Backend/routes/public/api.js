@@ -6,20 +6,6 @@ function handlePublicBackendApi(app) {
 
 
   // Register HTTP endpoint to get all users
-app.get('/api/v1/users', async function(req, res) {
-  try {
-    // Query all users from DB
-    const users = await  db.withSchema('FoodTruck')
-                      .select('*')
-                      .from('Users');
-
-    return res.status(200).json(users);
-  } catch (e) {
-    console.log(e.message);
-    return res.status(400).send('Could not fetch users');
-  }
-});
-
 
     // Register HTTP endpoint to create new user
     app.post('/api/v1/user', async function(req, res) {
