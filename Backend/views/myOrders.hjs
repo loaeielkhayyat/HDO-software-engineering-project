@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GIU Food Truck – My Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <style>
+      :root {
+        --brand: #f6682b;
+        --nav: #1f2a3b;
+        --bg2: #6f6be8;
+        --bg3: #7a4cc9;
+      }
+      body {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #25324a 0%, var(--bg2) 38%, var(--bg3) 100%);
+      }
+      .brand-nav {
+        background: var(--nav);
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        border-radius: 0;
+        margin-bottom: 0;
+      }
+      .brand-nav .navbar-brand {
+        color: #fff !important;
+        font-weight: 600;
+      }
+      .brand-nav .navbar-nav > li > a {
+        color: #fff !important;
+      }
+      .brand-nav .navbar-nav > .active > a {
+        background-color: rgba(255,255,255,0.1) !important;
+      }
+      .hero {
+        background: rgba(31,42,59,.55);
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        padding: 22px 0 18px;
+        color: #fff;
+        text-align: center;
+      }
+      .hero .title {
+        font-weight: 800;
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+      .hero .subtitle {
+        opacity: 0.75;
+        font-size: 0.92rem;
+        margin-top: 4px;
+      }
+      .panel {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 18px 40px rgba(0,0,0,.22);
+        padding: 26px 18px;
+        margin-bottom: 30px;
+      }
+      .btn-brand {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .btn-brand:hover {
+        background: #e55a1f;
+        border-color: #e55a1f;
+        color: #fff;
+      }
+      .empty-icon {
+        font-size: 34px;
+        opacity: 0.55;
+        margin-bottom: 10px;
+      }
+      .muted {
+        color: #6c757d;
+      }
+      .order-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #fff;
+      }
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .order-info {
+        flex: 1;
+      }
+      .order-title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      .order-meta {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .order-status {
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      .status-pending {
+        background: #ffc107;
+        color: #000;
+      }
+      .status-preparing {
+        background: #0d6efd;
+        color: #fff;
+      }
+      .status-ready {
+        background: #198754;
+        color: #fff;
+      }
+      .status-completed {
+        background: #6c757d;
+        color: #fff;
+      }
+      .status-cancelled {
+        background: #dc3545;
+        color: #fff;
+      }
+      .order-price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #b64619;
+        margin-top: 10px;
+      }
+      .order-actions {
+        margin-top: 10px;
+      }
+      .order-details {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+        display: none;
+      }
+      .order-details.show {
+        display: block;
+      }
+      .order-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .order-item:last-child {
+        border-bottom: none;
+      }
+      .order-item-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .order-item-meta {
+        color: #666;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Top navbar -->
+    <nav class="navbar navbar-inverse brand-nav">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/dashboard">🍔 GIU FoodTruck</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/trucks">🚚 Trucks</a></li>
+          <li><a href="/cart">🛒 Cart</a></li>
+          <li class="active"><a href="/orders">📦 My Orders</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Header band -->
+    <div class="hero">
+      <div class="container">
+        <div class="title">📄 My Orders</div>
+        <div class="subtitle">Track your order history</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container" style="margin-top: 20px; margin-bottom: 30px;">
+      <div class="panel" style="max-width: 860px; margin: 0 auto;">
+        <!-- Orders list -->
+        <div id="ordersList">
+          <!-- Orders will be injected here by myOrders.js -->
+        </div>
+
+        <!-- Empty state -->
+        <div id="emptyState" class="text-center" style="display: none;">
+          <div class="empty-icon">📋</div>
+          <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">No orders yet</div>
+          <div class="muted" style="margin-top: 5px; font-size: 14px;">Start ordering from your favorite food trucks!</div>
+          <a href="/trucks" class="btn btn-brand" style="margin-top: 15px; padding: 8px 20px;">BROWSE TRUCKS</a>
+        </div>
+
+        <!-- Error message -->
+        <div id="ordersError" class="alert alert-danger" style="display: none; margin-top: 15px;"></div>
+      </div>
+    </div>
+
+    <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/src/myOrders.js" type="text/javascript"></script>
+  </body>
+</html>
+
