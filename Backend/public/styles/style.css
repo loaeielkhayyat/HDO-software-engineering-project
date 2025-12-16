@@ -1,6 +1,6 @@
 .centerImg {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .center {
@@ -89,15 +89,15 @@
   font-weight: 600;
 }
 
-.top-navbar .navbar-nav > li > a {
+.top-navbar .navbar-nav>li>a {
   color: #e0e7ff !important;
   font-weight: 500;
 }
 
-.top-navbar .navbar-nav > li > a:hover,
-.top-navbar .navbar-nav > .active > a,
-.top-navbar .navbar-nav > .active > a:focus,
-.top-navbar .navbar-nav > .active > a:hover {
+.top-navbar .navbar-nav>li>a:hover,
+.top-navbar .navbar-nav>.active>a,
+.top-navbar .navbar-nav>.active>a:focus,
+.top-navbar .navbar-nav>.active>a:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
   color: #ffffff !important;
 }
@@ -120,4 +120,247 @@
 
 .auth-error {
   margin-bottom: 16px;
+}
+
+/* ===== Bootstrap 5 Utility Classes for Bootstrap 3 Compatibility ===== */
+
+/* Viewport height utilities */
+.min-vh-100 {
+  min-height: 100vh !important;
+}
+
+/* Display utilities */
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-row {
+  flex-direction: row !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1 !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.gap-4 {
+  gap: 1.5rem !important;
+}
+
+/* Spacing utilities */
+.px-4 {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.p-4 {
+  padding: 1.5rem !important;
+}
+
+.p-5 {
+  padding: 3rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 3rem !important;
+}
+
+.my-5 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.ms-auto {
+  margin-left: auto !important;
+}
+
+.ms-4 {
+  margin-left: 1.5rem !important;
+}
+
+.me-2 {
+  margin-right: 0.5rem !important;
+}
+
+/* Width utilities */
+.w-100 {
+  width: 100% !important;
+}
+
+/* Font utilities */
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.fs-2 {
+  font-size: 2rem !important;
+}
+
+.fs-3 {
+  font-size: 1.75rem !important;
+}
+
+/* Text utilities */
+.text-start {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-decoration-none {
+  text-decoration: none !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.text-light {
+  color: #f8f9fa !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+/* Border utilities */
+.border-0 {
+  border: 0 !important;
+}
+
+.rounded-4 {
+  border-radius: 0.5rem !important;
+}
+
+/* Shadow utilities */
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Background utilities */
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+/* Opacity utilities */
+.opacity-75 {
+  opacity: 0.75 !important;
+}
+
+/* Height utilities */
+.h-100 {
+  height: 100% !important;
+}
+
+/* Navbar utilities for Bootstrap 5 style */
+.navbar-dark .navbar-brand {
+  color: #fff !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #fff !important;
+}
+
+/* Card utilities */
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Button utilities */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.btn-outline-light {
+  color: #f8f9fa;
+  border-color: #f8f9fa;
+  background-color: transparent;
+}
+
+.btn-outline-light:hover {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+  background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Form utilities */
+.form-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* List utilities */
+ol {
+  padding-left: 1.5rem;
 }

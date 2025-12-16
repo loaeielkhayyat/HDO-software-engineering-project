@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>FoodTruck Owner – Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+
+    <style>
+        :root {
+            --brand: #f46b2a;
+            --nav: #1f2a3b;
+            --bg2: #6f6be8;
+            --bg3: #7a4cc9;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #25324a 0%, var(--bg2) 38%, var(--bg3) 100%);
+            padding-bottom: 40px;
+        }
+
+        /* Navbar */
+        .navbar-inverse {
+            background: var(--nav);
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .navbar-inverse .navbar-brand,
+        .navbar-inverse .navbar-nav>li>a {
+            color: #fff;
+        }
+
+        .navbar-inverse .navbar-nav>li.active>a {
+            background: rgba(255, 255, 255, .1) !important;
+        }
+
+        /* Header band */
+        .hero {
+            background: rgba(31, 42, 59, .55);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            padding: 22px 0 18px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero .title {
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .hero .subtitle {
+            opacity: .75;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* White panels */
+        .panel-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+            padding: 14px;
+            max-width: 980px;
+            margin: 18px auto 0;
+        }
+
+        .tabs-wrap {
+            padding: 10px 12px;
+        }
+
+        /* Status pills row */
+        .status-tabs {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: block;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .status-tabs li {
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-tabs a {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 12px;
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .status-tabs a.active {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, .5);
+        }
+
+        .tab-all {
+            background: #f5f5f5;
+            color: #555 !important;
+            border: 1px solid #e5e5e5;
+        }
+
+        .tab-pending {
+            background: #f0ad4e;
+        }
+
+        .tab-preparing {
+            background: #5bc0de;
+        }
+
+        .tab-ready {
+            background: #f46b2a;
+        }
+
+        .tab-completed {
+            background: #5cb85c;
+        }
+
+        .tab-cancelled {
+            background: #d9534f;
+        }
+
+        /* Empty orders card */
+        .empty-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+            max-width: 980px;
+            margin: 14px auto 30px;
+            padding: 60px 18px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 30px;
+            opacity: .6;
+            margin-bottom: 10px;
+        }
+
+        .muted {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* Orders table */
+        .orders-table {
+            margin-top: 14px;
+        }
+
+        .orders-table .table {
+            margin-bottom: 0;
+        }
+
+        .orders-table .table>thead>tr>th {
+            font-size: 12px;
+            color: #777;
+            border-bottom: 1px solid #eee;
+        }
+
+        .orders-table .table>tbody>tr>td {
+            vertical-align: middle;
+            font-size: 12px;
+        }
+
+        .order-badge {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 11px;
+            display: inline-block;
+        }
+
+        .badge-pending {
+            background: #fcf8e3;
+            color: #8a6d3b;
+            border: 1px solid #faebcc;
+        }
+
+        .badge-preparing {
+            background: #d9edf7;
+            color: #31708f;
+            border: 1px solid #bce8f1;
+        }
+
+        .badge-ready {
+            background: #ffe6da;
+            color: #b64619;
+            border: 1px solid rgba(244, 107, 42, .3);
+        }
+
+        .badge-completed {
+            background: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+
+        .badge-cancelled {
+            background: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        .btn-mini {
+            padding: 3px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+
+        .btn-brand {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .btn-brand:hover,
+        .btn-brand:focus {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
+            filter: brightness(.95);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/dashboard">🍔 FoodTruck Owner</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/menuItems">Menu Items</a></li>
+                <li class="active"><a href="/truckOrders">Orders</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="hero">
+        <div class="container">
+            <div class="title">📦 Truck Orders</div>
+            <div class="subtitle">Manage incoming orders for your truck</div>
+        </div>
+    </div>
+
+    <!-- Status Tabs -->
+    <div class="container">
+        <div class="panel-card tabs-wrap">
+            <ul class="status-tabs">
+                <li><a class="tab-all active" href="#" data-filter="all">All Orders</a></li>
+                <li><a class="tab-pending" href="#" data-filter="pending">Pending</a></li>
+                <li><a class="tab-preparing" href="#" data-filter="preparing">Preparing</a></li>
+                <li><a class="tab-ready" href="#" data-filter="ready">Ready</a></li>
+                <li><a class="tab-completed" href="#" data-filter="completed">Completed</a></li>
+                <li><a class="tab-cancelled" href="#" data-filter="cancelled">Cancelled</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="container">
+        <div id="ordersAlert" class="alert alert-danger" style="display: none; max-width: 980px; margin: 10px auto;">
+        </div>
+        <div id="ordersSuccess" class="alert alert-success" style="display: none; max-width: 980px; margin: 10px auto;">
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="container" id="loadingState" style="display: none;">
+        <div class="empty-card">
+            <p>Loading orders...</p>
+        </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="container" id="emptyState" style="display: none;">
+        <div class="empty-card">
+            <div class="empty-icon">🥔</div>
+            <div style="font-weight:800;">No orders yet</div>
+            <div class="muted" style="margin-top:6px;">
+                Orders will appear here once customers place their first order
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="container" id="ordersTableContainer" style="display: none;">
+        <div class="panel-card orders-table">
+            <div class="table-responsive">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:80px;">Order ID</th>
+                            <th style="width:140px;">Customer</th>
+                            <th style="width:110px;">Status</th>
+                            <th style="width:100px;">Total</th>
+                            <th style="width:150px;">Pickup Time</th>
+                            <th style="width:120px;">Created</th>
+                            <th style="width:180px; text-align:right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Order Details Modal -->
+    <div class="modal fade" id="viewOrderModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Order Details</h4>
+                </div>
+                <div class="modal-body" id="viewOrderBody">
+                    <!-- Details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Status Modal -->
+    <div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Order Status</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="updateOrderId" />
+                    <div class="form-group">
+                        <label for="updateOrderStatus">New Status</label>
+                        <select class="form-control" id="updateOrderStatus">
+                            <option value="pending">Pending</option>
+                            <option value="preparing">Preparing</option>
+                            <option value="ready">Ready</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-brand" id="btnConfirmUpdate">Update Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 3 JS -->
+    <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/src/truckOrders.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FoodTruck Owner – Dashboard</title>
+
+    <!-- Bootstrap & Styles -->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+
+    <style>
+        :root {
+            --brand: #f46b2a;
+            --nav: #1f2a3b;
+            --bg2: #6f6be8;
+            --bg3: #7a4cc9;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #25324a 0%, var(--bg2) 38%, var(--bg3) 100%);
+        }
+
+        .brand-nav {
+            background: var(--nav);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .brand-nav .navbar-brand {
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+        .brand-nav .navbar-nav>li>a {
+            color: #fff !important;
+        }
+
+        .brand-nav .navbar-nav>.active>a {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+            padding: 18px;
+        }
+
+        .status-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-badge {
+            background: #ffe6da;
+            color: #b64619;
+            border: 1px solid rgba(244, 107, 42, .3);
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: .8rem;
+        }
+
+        .status-badge.active {
+            background: #d1e7dd;
+            color: #0f5132;
+            border-color: #badbcc;
+        }
+
+        .status-badge.inactive {
+            background: #f8d7da;
+            color: #842029;
+            border-color: #f5c2c7;
+        }
+
+        .btn-brand {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .btn-brand:hover {
+            filter: brightness(.95);
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, .08);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #b64619;
+        }
+
+        .section-title {
+            font-size: .85rem;
+            color: #6c757d;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-inverse brand-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/dashboard">🍔 FoodTruck Owner</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/menuItems">Menu Items</a></li>
+                <li><a href="/truckOrders">Orders</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container" style="max-width:1100px; margin-top: 20px; margin-bottom: 20px;">
+
+        <!-- Alert Container -->
+        <div id="dashboardAlert" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+        <!-- Top Status Card -->
+        <div class="panel" style="margin-bottom: 20px;">
+            <div class="status-card">
+                <div>
+                    <div style="font-weight: bold;" id="truckName">🚚 Loading...</div>
+                    <div class="small text-muted">Current order status</div>
+                    <span id="truckStatusBadge" class="status-badge"
+                        style="margin-top: 8px; display: inline-block;">Loading...</span>
+                </div>
+
+                <div style="text-align: right;">
+                    <div class="small" style="font-weight: bold;">Order Actions</div>
+                    <div class="dropdown" style="margin-top: 8px;">
+                        <button class="btn btn-brand btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-toggle="dropdown" aria-expanded="false"
+                            style="padding-left: 12px; padding-right: 12px;">
+                            UPDATE STATUS
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="status-option" href="#" data-status="available">Set Available</a></li>
+                            <li><a class="status-option" href="#" data-status="unavailable">Set Unavailable</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-4" style="margin-bottom: 15px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="statTotal">0</div>
+                    <div class="small text-muted">Total Orders</div>
+                </div>
+            </div>
+            <div class="col-md-4" style="margin-bottom: 15px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="statPending">0</div>
+                    <div class="small text-muted">Pending Orders</div>
+                </div>
+            </div>
+            <div class="col-md-4" style="margin-bottom: 15px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="statCompleted">0</div>
+                    <div class="small text-muted">Completed Orders</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Cards -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel">
+                    <div class="section-title">⚡ Quick Actions</div>
+                    <button class="btn btn-brand btn-block" id="btnAddMenuItem" style="margin-top: 8px;">+ ADD MENU
+                        ITEM</button>
+                    <button class="btn btn-default btn-block" id="btnManageMenu" style="margin-top: 8px;">Manage
+                        Menu</button>
+                    <button class="btn btn-default btn-block" id="btnViewOrders" style="margin-top: 8px;">View
+                        Orders</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel">
+                    <div class="section-title">🧾 Recent Orders</div>
+                    <div id="recentOrdersList">
+                        <div class="text-muted small" style="margin-top: 12px;">No recent orders yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/src/ownerDashboard.js"></script>
+
+</body>
+
+</html>
