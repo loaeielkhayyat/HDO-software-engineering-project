@@ -1,242 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>GIU Food Truck – Cart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
-    <link rel="stylesheet" href="/styles/style.css" />
-    <style>
-      :root {
-        --brand: #f6682b;
-        --brand-soft: #ffe6da;
-        --nav: #1f2a3b;
-        --bg2: #6f6be8;
-        --bg3: #7a4cc9;
-      }
-      body {
-        min-height: 100vh;
-        background: linear-gradient(180deg, #25324a 0%, var(--bg2) 38%, var(--bg3) 100%);
-      }
-      .brand-nav {
-        background: var(--nav);
-        border-bottom: 1px solid rgba(255,255,255,.08);
-        border-radius: 0;
-        margin-bottom: 0;
-      }
-      .brand-nav .navbar-brand {
-        color: #fff !important;
-        font-weight: 600;
-      }
-      .brand-nav .navbar-nav > li > a {
-        color: #fff !important;
-      }
-      .brand-nav .navbar-nav > .active > a {
-        background-color: rgba(255,255,255,0.1) !important;
-      }
-      .hero {
-        background: rgba(31,42,59,.55);
-        border-bottom: 1px solid rgba(255,255,255,.08);
-        padding: 22px 0 18px;
-        color: #fff;
-        text-align: center;
-      }
-      .hero .title {
-        font-weight: 800;
-        font-size: 24px;
-        margin-bottom: 4px;
-      }
-      .hero .subtitle {
-        opacity: 0.75;
-        font-size: 0.92rem;
-        margin-top: 4px;
-      }
-      .panel {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 18px 40px rgba(0,0,0,.22);
-        padding: 18px;
-        margin-bottom: 30px;
-      }
-      .cart-item {
-        border-radius: 8px;
-        border: 1px solid rgba(0,0,0,.08);
-        box-shadow: 0 8px 16px rgba(0,0,0,.06);
-        position: relative;
-        overflow: hidden;
-        padding: 15px;
-        margin-bottom: 15px;
-        background: #fff;
-      }
-      .cart-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        background: var(--brand);
-        opacity: 0.85;
-      }
-      .badge-type {
-        background: var(--brand-soft);
-        color: #b64619;
-        border: 1px solid rgba(244,107,42,.25);
-        font-weight: 600;
-        padding: 4px 8px;
-        border-radius: 4px;
-      }
-      .btn-brand {
-        background: var(--brand);
-        border-color: var(--brand);
-        color: #fff;
-        font-weight: 800;
-        letter-spacing: 0.2px;
-      }
-      .btn-brand:hover {
-        background: #e55a1f;
-        border-color: #e55a1f;
-        color: #fff;
-      }
-      .price {
-        color: #b64619;
-        font-weight: 900;
-      }
-      .muted {
-        color: #6c757d;
-      }
-      .qty-btn {
-        width: 34px;
-        height: 34px;
-        padding: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .empty-state {
-        border-radius: 10px;
-        padding: 30px 16px;
-        text-align: center;
-      }
-      .empty-icon {
-        font-size: 34px;
-        opacity: 0.55;
-      }
-      .section-title {
-        font-size: 0.8rem;
-        color: #6c757d;
-        letter-spacing: 0.2px;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-      }
-      .summary-section {
-        border-top: 1px solid #ddd;
-        padding-top: 15px;
-        margin-top: 15px;
-      }
-      .total-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-      .total-label {
-        font-weight: bold;
-        font-size: 18px;
-      }
-      .total-price {
-        color: #b64619;
-        font-weight: 900;
-        font-size: 24px;
-      }
-      .pickup-time-section {
-        margin-bottom: 15px;
-      }
-      .pickup-time-section label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 600;
-      }
-    </style>
-  </head>
 
-  <body>
-    <!-- Top navbar -->
-    <nav class="navbar navbar-inverse brand-nav">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/dashboard">🍔 GIU FoodTruck</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="/trucks">🚚 Trucks</a></li>
-          <li class="active"><a href="/cart">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIU Food Truck – Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+  <link rel="stylesheet" href="/styles/style.css" />
+  <style>
+    :root {
+      --brand: #f6682b;
+      --brand-soft: #ffe6da;
+      --nav: #1f2a3b;
+      --bg2: #6f6be8;
+      --bg3: #7a4cc9;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #25324a 0%, var(--bg2) 38%, var(--bg3) 100%);
+    }
+
+    .brand-nav {
+      background: var(--nav);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 0;
+      margin-bottom: 0;
+    }
+
+    .brand-nav .navbar-brand {
+      color: #fff !important;
+      font-weight: 600;
+    }
+
+    .brand-nav .navbar-nav>li>a {
+      color: #fff !important;
+    }
+
+    .brand-nav .navbar-nav>.active>a {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .hero {
+      background: rgba(31, 42, 59, .55);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      padding: 22px 0 18px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .hero .title {
+      font-weight: 800;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .hero .subtitle {
+      opacity: 0.75;
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+      padding: 18px;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, .06);
+      position: relative;
+      overflow: hidden;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fff;
+    }
+
+    .cart-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--brand);
+      opacity: 0.85;
+    }
+
+    .badge-type {
+      background: var(--brand-soft);
+      color: #b64619;
+      border: 1px solid rgba(244, 107, 42, .25);
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .btn-brand {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-brand:hover {
+      background: #e55a1f;
+      border-color: #e55a1f;
+      color: #fff;
+    }
+
+    .price {
+      color: #b64619;
+      font-weight: 900;
+    }
+
+    .muted {
+      color: #6c757d;
+    }
+
+    .qty-btn {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-state {
+      border-radius: 10px;
+      padding: 30px 16px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      font-size: 34px;
+      opacity: 0.55;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      color: #6c757d;
+      letter-spacing: 0.2px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .summary-section {
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .total-label {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .total-price {
+      color: #b64619;
+      font-weight: 900;
+      font-size: 24px;
+    }
+
+    .pickup-time-section {
+      margin-bottom: 15px;
+    }
+
+    .pickup-time-section label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top navbar -->
+  <nav class="navbar navbar-inverse brand-nav">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/dashboard">🍔 GIU FoodTruck</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/trucks">🚚 Trucks</a></li>
+        <li class="active"><a href="/cart">
             🛒 Cart <span class="badge" id="cartCount" style="background: #fff; color: #000;">0</span>
           </a></li>
-          <li><a href="/orders">📦 My Orders</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/logout">Logout</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Page header band -->
-    <div class="hero">
-      <div class="container">
-        <div class="title">🛒 Shopping Cart</div>
-        <div class="subtitle">Review your items before checkout</div>
-      </div>
+        <li><a href="/orders">📦 My Orders</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Logout</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Main content -->
-    <div class="container" style="margin-top: 20px; margin-bottom: 30px;">
-      <div class="panel" style="max-width: 860px; margin: 0 auto;">
-        <div class="section-title">Cart Items</div>
+  <!-- Page header band -->
+  <div class="hero">
+    <div class="container">
+      <div class="title">🛒 Shopping Cart</div>
+      <div class="subtitle">Review your items before checkout</div>
+    </div>
+  </div>
 
-        <!-- Items render here -->
-        <div id="cartArea"></div>
+  <!-- Main content -->
+  <div class="container" style="margin-top: 20px; margin-bottom: 30px;">
+    <div class="panel" style="max-width: 860px; margin: 0 auto;">
+      <div class="section-title">Cart Items</div>
 
-        <!-- Summary -->
-        <div id="summary" style="display: none;">
-          <div class="summary-section">
-            <div class="pickup-time-section">
-              <label for="pickupTime">Scheduled Pickup Time (Optional):</label>
-              <input type="datetime-local" id="pickupTime" class="form-control" />
+      <!-- Items render here -->
+      <div id="cartArea"></div>
+
+      <!-- Summary -->
+      <div id="summary" style="display: none;">
+        <div class="summary-section">
+          <div class="pickup-time-section">
+            <label for="pickupTime">Scheduled Pickup Time (Optional):</label>
+            <input type="datetime-local" id="pickupTime" class="form-control" />
+          </div>
+
+          <div class="total-row">
+            <div class="total-label">Total</div>
+            <div class="total-price" id="totalPrice">$0.00</div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <button class="btn btn-default btn-block" id="clearCartBtn" type="button">Clear Cart</button>
             </div>
-
-            <div class="total-row">
-              <div class="total-label">Total</div>
-              <div class="total-price" id="totalPrice">$0.00</div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-6">
-                <button class="btn btn-default btn-block" id="clearCartBtn" type="button">Clear Cart</button>
-              </div>
-              <div class="col-xs-6">
-                <button class="btn btn-brand btn-block" id="placeOrderBtn" type="button">Place Order</button>
-              </div>
+            <div class="col-xs-6">
+              <button class="btn btn-brand btn-block" id="placeOrderBtn" type="button">Place Order</button>
             </div>
           </div>
         </div>
-
-        <!-- Empty state -->
-        <div id="empty" class="empty-state" style="display: none;">
-          <div class="empty-icon">🛒</div>
-          <div style="font-weight: bold; margin-top: 10px; font-size: 18px;">Your cart is empty</div>
-          <div class="muted" style="margin-top: 5px; font-size: 14px;">Browse trucks and add delicious items</div>
-          <a href="/trucks" class="btn btn-brand" style="margin-top: 15px; padding: 8px 20px;">BROWSE TRUCKS</a>
-        </div>
-
-        <!-- Success/Error Messages -->
-        <div id="successMessage" class="alert alert-success" style="display: none; margin-top: 15px;"></div>
-        <div id="cartError" class="alert alert-danger" style="display: none; margin-top: 15px;"></div>
       </div>
+
+      <!-- Empty state -->
+      <div id="empty" class="empty-state" style="display: none;">
+        <div class="empty-icon">🛒</div>
+        <div style="font-weight: bold; margin-top: 10px; font-size: 18px;">Your cart is empty</div>
+        <div class="muted" style="margin-top: 5px; font-size: 14px;">Browse trucks and add delicious items</div>
+        <a href="/trucks" class="btn btn-brand" style="margin-top: 15px; padding: 8px 20px;">BROWSE TRUCKS</a>
+      </div>
+
+      <!-- Success/Error Messages -->
+      <div id="successMessage" class="alert alert-success" style="display: none; margin-top: 15px;"></div>
+      <div id="cartError" class="alert alert-danger" style="display: none; margin-top: 15px;"></div>
     </div>
+  </div>
 
-    <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
-    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/src/cart.js" type="text/javascript"></script>
-  </body>
+  <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+  <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/src/cart.js" type="text/javascript"></script>
+</body>
+
 </html>
-
