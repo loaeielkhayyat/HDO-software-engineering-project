@@ -1,338 +1,200 @@
 # 🍔 GIU Food Truck Platform
 
-A comprehensive web-based food truck ordering and management system built with Node.js, Express, PostgreSQL, and Bootstrap 3.
+A comprehensive web-based food truck ordering and management system designed for campus environments. Built with Node.js, Express, PostgreSQL, and Bootstrap 3.
 
-## 📋 Table of Contents
+## 👥 Team Information
+- **Team Name**: HDO
+- **Team Members**:
+  - **loaei mohamed** (ID: 16004639, Tutorial: T12)
+  - **Omar ismail** (ID: 16005290, Tutorial: T09)
+  - **Mohamed dawood** (ID: 16008342, Tutorial: T13)
+  - **Mohamed hamada** (ID: 16003884, Tutorial: T06)
 
-- [Overview](#overview)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Database Setup](#database-setup)
-- [Running the Application](#running-the-application)
-- [API Documentation](#api-documentation)
-- [User Roles](#user-roles)
-- [Pages & Routes](#pages--routes)
+---
 
-## 🎯 Overview
+## 🎯 Project Overview
+The GIU Food Truck Platform connects food truck owners with hungry customers. Truck owners can manage their menus and track orders in real-time, while customers can browse available trucks, place orders, and track their pickup status.
 
-The GIU Food Truck Platform is a full-stack web application that connects food truck owners with customers. Truck owners can manage their menus, track orders, and update their availability, while customers can browse available trucks, place orders, and track their order status.
+---
 
 ## ✨ Features
 
 ### For Customers
-- **Browse Food Trucks**: View all available food trucks on campus
-- **Menu Browsing**: Explore truck menus with categories and pricing
-- **Shopping Cart**: Add items to cart and manage quantities
-- **Order Placement**: Place orders with scheduled pickup times
-- **Order Tracking**: View order history and current order status
-- **User Authentication**: Secure login and registration
+- **Browse Food Trucks**: View a list of all active food trucks on campus.
+- **Menu Exploration**: View detailed truck menus with categories and pricing.
+- **Shopping Cart**: Add multiple items to a cart, manage quantities, and see total costs.
+- **Order Placement**: Securely place orders with custom pickup times.
+- **Order Tracking**: Monitor the status of current orders and view historical orders.
+- **Secure Authentication**: Register and login to maintain personal order history.
 
 ### For Truck Owners
-- **Owner Dashboard**: Overview of truck status, orders, and statistics
-- **Menu Management**: 
-  - Add new menu items
-  - Edit existing items (name, category, description, price, status)
-  - Delete menu items
-  - View all menu items in a table
-- **Order Management**:
-  - View all incoming orders
-  - Filter orders by status (Pending, Preparing, Ready, Completed, Cancelled)
-  - View detailed order information
-  - Update order status
-- **Truck Status**: Toggle truck availability for orders
+- **Owner Dashboard**: High-level overview of truck status and recent orders.
+- **Truck Management**: Toggle truck availability and order acceptance status.
+- **Menu Management (CRUD)**:
+  - Add new menu items with descriptions and prices.
+  - Edit existing items (update price, status, or details).
+  - Delete retired menu items.
+  - View full menu inventory.
+- **Real-time Order Management**:
+  - View all incoming customer orders.
+  - Filter orders by status (Pending, Preparing, Ready, Completed).
+  - Update order status to notify customers.
+  - Access detailed order breakdowns.
+
+---
 
 ## 🛠 Technology Stack
+
+### Frontend
+- **Template Engine**: [Hogan.js (HJS)](http://twitter.github.io/hogan.js/)
+- **Styling**: Bootstrap 3.4.1 (Vanilla CSS)
+- **Logic**: JavaScript (ES6+) with **jQuery 2.2.0**
+- **Communication**: AJAX (jQuery) for seamless data fetching
 
 ### Backend
 - **Runtime**: Node.js
 - **Framework**: Express.js
-- **Database**: PostgreSQL
-- **ORM**: Knex.js
-- **Session Management**: express-session with PostgreSQL store
-- **Environment Variables**: dotenv
+- **Authentication**: Session-based (express-session)
+- **Utilities**: UUID for session tokens, Axios for internal requests
 
-### Frontend
-- **Template Engine**: Hogan.js (HJS)
-- **CSS Framework**: Bootstrap 3.4.1
-- **JavaScript**: jQuery 2.2.0
-- **AJAX**: jQuery AJAX for API calls
-
-### Development Tools
-- **Process Manager**: Nodemon (for development)
-- **Package Manager**: npm
-
-## 📁 Project Structure
-
-```
-HDO-software-engineering-project/
-├── Backend/
-│   ├── connectors/
-│   │   └── db.js                 # Database connection
-│   ├── middleware/
-│   │   └── auth.js                # Authentication middleware
-│   ├── routes/
-│   │   ├── public/
-│   │   │   ├── api.js             # Public API endpoints
-│   │   │   └── view.js            # Public view routes
-│   │   └── private/
-│   │       ├── api.js             # Private API endpoints
-│   │       └── view.js            # Private view routes
-│   ├── utils/
-│   │   └── session.js             # Session utilities
-│   ├── views/
-│   │   ├── login.hjs              # Login page
-│   │   ├── register.hjs           # Registration page
-│   │   ├── customerHomepage.hjs   # Customer dashboard
-│   │   ├── ownerDashboard.hjs     # Truck owner dashboard
-│   │   ├── trucks.hjs             # Browse trucks page
-│   │   ├── truckMenu.hjs          # Truck menu page
-│   │   ├── cart.hjs               # Shopping cart page
-│   │   ├── myOrders.hjs           # Customer orders page
-│   │   ├── menuItems.hjs          # Menu items management
-│   │   ├── addMenuItem.hjs        # Add menu item page
-│   │   └── truckOrders.hjs        # Truck orders management
-│   ├── public/
-│   │   ├── src/
-│   │   │   ├── login.js
-│   │   │   ├── register.js
-│   │   │   ├── trucks.js
-│   │   │   ├── truckMenu.js
-│   │   │   ├── cart.js
-│   │   │   ├── myOrders.js
-│   │   │   ├── ownerDashboard.js
-│   │   │   ├── menuItems.js
-│   │   │   ├── addMenuItem.js
-│   │   │   └── truckOrders.js
-│   │   ├── styles/
-│   │   │   ├── bootstrap.min.css
-│   │   │   └── style.css
-│   │   └── js/
-│   │       ├── jquery-2.2.0.min.js
-│   │       └── bootstrap.min.js
-│   ├── server.js                  # Main server file
-│   ├── package.json
-│   └── .env                       # Environment variables
-└── README.md
-```
-
-## 🚀 Installation
-
-### Prerequisites
-- Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- npm (comes with Node.js)
-
-### Steps
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd HDO-software-engineering-project
-   ```
-
-2. **Install dependencies**
-   ```bash
-   cd Backend
-   npm install
-   ```
-
-3. **Configure environment variables**
-   
-   Create a `.env` file in the `Backend` directory:
-   ```env
-   PORT=3001
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=your_db_user
-   DB_PASSWORD=your_db_password
-   DB_NAME=foodtruck_db
-   SESSION_SECRET=your_secret_key_here
-   ```
-
-## 🗄 Database Setup
-
-### Database Schema
-
-The application uses the following tables in the `FoodTruck` schema:
-
-- **Users**: User accounts (customers and truck owners)
-- **Trucks**: Food truck information
-- **MenuItems**: Menu items for each truck
-- **Carts**: Shopping cart items
-- **Orders**: Customer orders
-- **OrderItems**: Items in each order
-- **Sessions**: User session data
-
-### Create Database
-
-```sql
-CREATE DATABASE foodtruck_db;
-```
-
-Run the database migration scripts to create the schema and tables (scripts should be provided separately).
-
-## ▶️ Running the Application
-
-### Development Mode
-```bash
-cd Backend
-npm run dev
-```
-
-### Production Mode
-```bash
-cd Backend
-npm start
-```
-
-The application will be available at `http://localhost:3001`
-
-## 📡 API Documentation
-
-### Public Endpoints
-
-#### Authentication
-- `POST /api/v1/register` - Register new user
-- `POST /api/v1/login` - User login
-- `POST /api/v1/logout` - User logout
-
-### Private Endpoints (Require Authentication)
-
-#### Menu Items (Truck Owner)
-- `GET /api/v1/menuItem/view` - Get all menu items for owner's truck
-- `GET /api/v1/menuItem/view/:itemId` - Get specific menu item
-- `POST /api/v1/menuItem/new` - Create new menu item
-- `PUT /api/v1/menuItem/edit/:itemId` - Update menu item
-- `DELETE /api/v1/menuItem/delete/:itemId` - Delete menu item
-
-#### Menu Items (Customer)
-- `GET /api/v1/menuItem/truck/:truckId` - Get available menu items for a truck
-- `GET /api/v1/menuItem/truck/:truckId/category/:category` - Filter by category
-
-#### Trucks
-- `GET /api/v1/trucks/view` - Get all available trucks (Customer)
-- `GET /api/v1/trucks/myTruck` - Get owner's truck info (Truck Owner)
-- `PUT /api/v1/trucks/updateOrderStatus` - Update truck availability (Truck Owner)
-
-#### Cart (Customer)
-- `GET /api/v1/cart/view` - View cart items
-- `POST /api/v1/cart/new` - Add item to cart
-- `PUT /api/v1/cart/edit/:cartId` - Update cart item quantity
-- `DELETE /api/v1/cart/delete/:cartId` - Remove item from cart
-
-#### Orders (Customer)
-- `GET /api/v1/order/myOrders` - Get customer's orders
-- `GET /api/v1/order/details/:orderId` - Get order details
-- `POST /api/v1/order/new` - Place new order
-
-#### Orders (Truck Owner)
-- `GET /api/v1/order/truckOrders` - Get all orders for truck
-- `GET /api/v1/order/truckOwner/:orderId` - Get order details
-- `PUT /api/v1/order/updateStatus/:orderId` - Update order status
-
-## 👥 User Roles
-
-### Customer
-- Browse and search food trucks
-- View truck menus
-- Add items to cart
-- Place orders
-- Track order status
-
-### Truck Owner
-- Manage truck availability
-- Manage menu items (CRUD operations)
-- View and manage incoming orders
-- Update order status
-- View order statistics
-
-## 🗺 Pages & Routes
-
-### Public Routes
-- `/` - Login page
-- `/register` - Registration page
-
-### Customer Routes (Private)
-- `/dashboard` - Customer homepage
-- `/trucks` - Browse food trucks
-- `/truckMenu/:truckId` - View truck menu
-- `/cart` - Shopping cart
-- `/orders` - My orders
-
-### Truck Owner Routes (Private)
-- `/dashboard` - Owner dashboard
-- `/menuItems` - Menu items management
-- `/addMenuItem` - Add new menu item
-- `/truckOrders` - Orders management
-
-## 🎨 Design Features
-
-- **Gradient Backgrounds**: Modern gradient backgrounds for visual appeal
-- **Color-Coded Status Badges**: Easy-to-identify order and item statuses
-- **Responsive Design**: Works on desktop and mobile devices
-- **Modal Dialogs**: For viewing details and editing items
-- **Real-time Updates**: AJAX-based updates without page refresh
-- **Loading States**: Visual feedback during data loading
-- **Empty States**: Friendly messages when no data is available
-- **Form Validation**: Client-side and server-side validation
-
-## 🔒 Security Features
-
-- Session-based authentication
-- Role-based access control
-- Protected API endpoints
-- SQL injection prevention (via Knex.js parameterized queries)
-- Password hashing (should be implemented)
-- CSRF protection (recommended to add)
-
-## 🧪 Testing
-
-To test the application:
-
-1. Register as a customer and truck owner (use different emails)
-2. As truck owner: Add menu items and manage truck status
-3. As customer: Browse trucks, add items to cart, place orders
-4. As truck owner: View orders and update their status
-
-## 📝 Future Enhancements
-
-- Password hashing with bcrypt
-- Email notifications for order updates
-- Real-time order tracking with WebSockets
-- Payment integration
-- Truck location tracking
-- Customer reviews and ratings
-- Advanced search and filtering
-- Mobile app version
-- Admin dashboard for platform management
-
-## 👨‍💻 Development
-
-### Code Style
-- Use ES6+ features
-- Follow consistent naming conventions
-- Comment complex logic
-- Use async/await for asynchronous operations
-
-### Adding New Features
-1. Create API endpoint in `routes/private/api.js` or `routes/public/api.js`
-2. Create view route in `routes/private/view.js` or `routes/public/view.js`
-3. Create HJS template in `views/`
-4. Create client-side JavaScript in `public/src/`
-5. Update navigation links as needed
-
-## 📄 License
-
-This project is developed for educational purposes as part of the GIU Software Engineering course.
-
-## 🤝 Contributors
-
-- Development Team: [Your Names Here]
-- Course: Software Engineering
-- Institution: German International University (GIU)
+### Database
+- **Engine**: PostgreSQL
+- **Query Builder**: [Knex.js](https://knexjs.org/)
+- **Schema Management**: Manual SQL scripts and Knex migrations
 
 ---
 
-**Note**: This is a student project for educational purposes. For production use, additional security measures, testing, and optimization would be required.
+## 🗄 Database Design (ERD)
+
+The system uses a relational schema under the `FoodTruck` schema name. For the full Entity Relationship Diagram (ERD) and Software Requirements Specification (SRS), please refer to the `Documentation/` folder.
+
+### Database Tables Summary
+
+| Table | Description | Primary Key | Foreign Keys |
+| :--- | :--- | :--- | :--- |
+| **Users** | Stores all accounts (customers and owners) | `userId` | - |
+| **Trucks** | Truck profiles and current status | `truckId` | `ownerId` -> Users |
+| **MenuItems** | Individual food/drink items | `itemId` | `truckId` -> Trucks |
+| **Carts** | Persistent shopping cart items per user | `cartId` | `userId`, `itemId` |
+| **Orders** | Placed order records | `orderId` | `userId`, `truckId` |
+| **OrderItems** | Many-to-many relationship for order items | `orderItemId` | `orderId`, `itemId` |
+| **Sessions** | Active user authentication sessions | `id` | `userId` |
+
+---
+
+## 🚀 Installation and Setup
+
+### 1. Prerequisites
+- **Node.js**: v14.x or higher
+- **PostgreSQL**: v12.x or higher
+- **Web Browser**: Chrome/Firefox/Edge
+
+### 2. Environment Configuration
+Create a `.env` file in the `Backend` directory:
+```env
+PORT=3000
+PASSWORD=your_postgres_password
+# Ensure DB settings in Backend/connectors/db.js match your environment
+```
+
+### 3. Database Setup
+1. Open **pgAdmin4** or your preferred PSQL client.
+2. Create a new database named `foodtruck_db`.
+3. Execute the schema script: `Backend/connectors/scripts.sql`.
+4. (Optional) Insert sample data: `Backend/connectors/seed.sql`.
+
+### 4. Running the Application
+```bash
+# Navigate to the backend directory
+cd Backend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run server
+```
+Access the application at `http://localhost:3001`.
+
+---
+
+## 📡 API Endpoints Summary
+
+### Public Endpoints
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **POST** | `/api/v1/user` | Register a new user account |
+| **POST** | `/api/v1/user/login` | Login and establish session |
+
+### Private Endpoints (Require Authentication)
+| Method | Endpoint | Description | Access Level |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/test` | Connectivity test(testing purposes) | Any User |
+| **GET** | `/api/v1/users` | List all registered users(testing purposes) | Any User |
+| **GET** | `/api/v1/trucks/view` | View all available trucks | Customer |
+| **GET** | `/api/v1/menuItem/truck/:truckId` | View menu items for a specific truck | Customer |
+| **GET** | `/api/v1/menuItem/truck/:truckId/category/:category` | Filter truck menu by category | Customer |
+| **POST** | `/api/v1/cart/new` | Add item to shopping cart | Customer |
+| **GET** | `/api/v1/cart/view` | View current cart items | Customer |
+| **PUT** | `/api/v1/cart/edit/:cartId` | Update cart item quantity | Customer |
+| **DELETE** | `/api/v1/cart/delete/:cartId` | Remove item from cart | Customer |
+| **POST** | `/api/v1/order/new` | Place a new order | Customer |
+| **GET** | `/api/v1/order/myOrders` | View user's order history | Customer |
+| **GET** | `/api/v1/order/details/:orderId` | View specific order details | Customer |
+| **GET** | `/api/v1/trucks/myTruck` | View owned truck details | Truck Owner |
+| **PUT** | `/api/v1/trucks/updateOrderStatus`| Toggle truck availability | Truck Owner |
+| **POST** | `/api/v1/menuItem/new` | Create a new menu item | Truck Owner |
+| **GET** | `/api/v1/menuItem/view` | View all items for owner's truck | Truck Owner |
+| **GET** | `/api/v1/menuItem/view/:itemId` | View specific menu item details | Truck Owner |
+| **PUT** | `/api/v1/menuItem/edit/:itemId` | Update menu item details | Truck Owner |
+| **DELETE** | `/api/v1/menuItem/delete/:itemId` | Remove a menu item | Truck Owner |
+| **GET** | `/api/v1/order/truckOrders` | View incoming orders for truck | Truck Owner |
+| **GET** | `/api/v1/order/truckOwner/:orderId` | View specific customer order details | Truck Owner |
+| **PUT** | `/api/v1/order/updateStatus/:orderId`| Update order preparation status | Truck Owner |
+
+---
+
+## 🧪 Test Credentials
+
+For testing purposes, you can use the following accounts (ensure `seed.sql` has been run):
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Customer** | `ahmed@example.com` | `$2b$10$hashedpassword1` |
+| **Truck Owner** | `sarah@example.com` | `$2b$10$hashedpassword2` |
+| **Truck Owner** | `khaled@example.com` | `$2b$10$hashedpassword3` |
+
+*Note: Default password in seed scripts is often '123' unless specified otherwise during registration.*
+
+---
+
+## 📸 Screenshots
+
+| Page Name | Screenshot |
+| :--- | :--- |
+| **Login Page** | `![Login](./Screenshots/Login%20page.png)` |
+| **Registration** | `![Register](./Screenshots/Register%20page.png)` |
+| **Customer dashboard** | `![Customer Dashboard](./Screenshots/Customer%20dashboard.png)` |
+| **Browse Trucks (Customer)** | `![Trucks Page](./Screenshots/customer%20Trucks%20page.png)` |
+| **Truck Menu (Customer)** | `![Customer Menu](./Screenshots/customer%20Truck%20menu.png)` |
+| **Shopping Cart** | `![Cart](./Screenshots/Cart.png)` |
+| **My Orders (Customer)** | `![Customer Orders](./Screenshots/customer%20orders%20page.png)` |
+| **Owner Dashboard** | `![Owner Dashboard](./Screenshots/Truckowner%20dashboard.png)` |
+| **Menu Management** | `![Manage Menu](./Screenshots/Truckowner%20truck%20menu.png)` |
+| **Add Menu Item** | `![Add Item](./Screenshots/Truckowner%20add%20menu%20item.png)` |
+| **Order Management (Owner)**| `![Truck Orders](./Screenshots/Truckowner%20orders%20page.png)` |
+
+---
+
+## 🤝 Contributors
+
+| Name | Contributions |
+| :--- | :--- |
+| All members | Backend API, Database Schema, Authentication |
+| All members | Customer Views, Shopping Cart Logic, Order Placement |
+| All members | Truck Owner Dashboard, Menu Management, Order Status Updates |
+| All members | Styling, Responsive Design, API Integration |
+
+---
+
+Developed for the **Software Engineering** course at **German International University (GIU)**.

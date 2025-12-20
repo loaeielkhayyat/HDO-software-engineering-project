@@ -16,7 +16,7 @@ $(document).ready(function () {
   function showError(message) {
     $cartError.text(message).show();
     $successMessage.hide();
-    setTimeout(function() {
+    setTimeout(function () {
       $cartError.fadeOut();
     }, 5000);
   }
@@ -24,7 +24,7 @@ $(document).ready(function () {
   function showSuccess(message) {
     $successMessage.text(message).show();
     $cartError.hide();
-    setTimeout(function() {
+    setTimeout(function () {
       $successMessage.fadeOut();
     }, 3000);
   }
@@ -39,13 +39,13 @@ $(document).ready(function () {
   }
 
   function calculateTotal() {
-    return cartItems.reduce(function(sum, item) {
+    return cartItems.reduce(function (sum, item) {
       return sum + (parseFloat(item.price) * parseInt(item.quantity));
     }, 0);
   }
 
   function updateCartCount() {
-    const totalCount = cartItems.reduce(function(sum, item) {
+    const totalCount = cartItems.reduce(function (sum, item) {
       return sum + parseInt(item.quantity);
     }, 0);
     $cartCount.text(totalCount);
@@ -70,7 +70,7 @@ $(document).ready(function () {
       currentTruckId = cartItems[0].truckId;
     }
 
-    cartItems.forEach(function(item) {
+    cartItems.forEach(function (item) {
       const cartId = item.cartId;
       const name = item.name || 'Unnamed Item';
       const category = item.category || 'Other';
@@ -105,17 +105,17 @@ $(document).ready(function () {
         </div>
       `);
 
-      $item.find('.increase-qty').on('click', function() {
+      $item.find('.increase-qty').on('click', function () {
         updateQuantity(cartId, quantity + 1);
       });
 
-      $item.find('.decrease-qty').on('click', function() {
+      $item.find('.decrease-qty').on('click', function () {
         if (quantity > 1) {
           updateQuantity(cartId, quantity - 1);
         }
       });
 
-      $item.find('.remove-item').on('click', function() {
+      $item.find('.remove-item').on('click', function () {
         removeItem(cartId);
       });
 
@@ -199,17 +199,17 @@ $(document).ready(function () {
     }
 
     // Delete all items one by one
-    const deletePromises = cartItems.map(function(item) {
+    const deletePromises = cartItems.map(function (item) {
       return $.ajax({
         type: 'DELETE',
         url: `/api/v1/cart/delete/${item.cartId}`
       });
     });
 
-    $.when.apply($, deletePromises).done(function() {
+    $.when.apply($, deletePromises).done(function () {
       showSuccess('Cart cleared');
       loadCart();
-    }).fail(function() {
+    }).fail(function () {
       showError('Failed to clear some items');
       loadCart();
     });
@@ -237,7 +237,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         showSuccess('Order placed successfully! Redirecting to orders...');
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = '/orders';
         }, 2000);
       },
