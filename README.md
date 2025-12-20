@@ -114,7 +114,7 @@ npm install
 # Start the development server
 npm run server
 ```
-Access the application at `http://localhost:3001`.
+Access the application at `http://localhost:3000`.
 
 ---
 
