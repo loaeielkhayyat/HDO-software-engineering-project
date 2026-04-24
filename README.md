@@ -5,11 +5,10 @@ A comprehensive web-based food truck ordering and management system designed for
 ## 👥 Team Information
 - **Team Name**: HDO
 - **Team Members**:
-  - **loaei mohamed** (ID: 16004639, Tutorial: T12)
-  - **Omar ismail** (ID: 16005290, Tutorial: T09)
-  - **Mohamed dawood** (ID: 16008342, Tutorial: T13)
-  - **Mohamed hamada** (ID: 16003884, Tutorial: T06)
-
+  - **loaei mohamed** 
+  - **Omar ismail** 
+  - **Mohamed dawood** 
+  - **Mohamed hamada** 
 ---
 
 ## 🎯 Project Overview
